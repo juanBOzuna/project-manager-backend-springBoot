@@ -1,4 +1,5 @@
 package com.lulosys.projectManager.entitys;
+
 import javax.persistence.Entity;
 import org.hibernate.annotations.CreationTimestamp;
 import java.io.Serializable;
@@ -8,26 +9,33 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "projects")
-public class ProjectsEntity implements Serializable {
+public class ProjectEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 150)
     private String name;
 
-    @Column(name = "promotor_id")
-    private Long promotor_id;
+    @Column(name = "key_name", length = 150)
+    private String key_name;
 
-    // @OneToMany(cascade = CascadeType.ALL)
-    // @JoinColumn(name = "project_id")
-    // private List<TasksEntity> tasks;
+    @Column(name = "comercial_designation", length = 150)
+    private String comercial_designation;
+
+    @Column(name = "date_init", nullable = true, length = 150)
+    private Timestamp date_init;
+
+    @Column(name = "date_finish", nullable = true, length = 150)
+    private Timestamp date_finish;
+
+    @Column(name = "promotor_id", length = 150, nullable = true)
+    private Long promotor_id;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
-    
     private Timestamp created_at;
 
     public Long getId() {
@@ -55,10 +63,10 @@ public class ProjectsEntity implements Serializable {
     }
 
     // public List<TasksEntity> getTasks() {
-    //     return tasks;
+    // return tasks;
     // }
 
     // public void setTask(TasksEntity task) {
-    //     this.tasks.add(task);
+    // this.tasks.add(task);
     // }
 }

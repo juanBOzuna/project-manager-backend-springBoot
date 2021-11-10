@@ -1,6 +1,7 @@
 package com.lulosys.projectManager.entitys;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.persistence.*;
 
@@ -13,11 +14,29 @@ public class UserEntity implements Serializable {
     @Column(unique = true, nullable = false)
     private Long id;
 
+    @Column(name = "dni", nullable = false, length = 150)
+    private String dni;
+
     @Column(name = "name", nullable = false, length = 150)
     private String name;
 
+    @Column(name = "lastname", nullable = false, length = 150)
+    private String lastname;
+
+    @Column(name = "address", nullable = false, length = 150)
+    private String address;
+
+    @Column(name = "number_phone", nullable = false, length = 150)
+    private String number_phone;
+
     @Column(name = "email", nullable = false, length = 150)
     private String email;
+
+    @Column(name = "hiring_date", nullable = true, length = 150)
+    private Timestamp created_at;
+
+    @Column(name = "role", nullable = false, length = 150)
+    private String role;
 
     public Long getId() {
         return id;
@@ -33,14 +52,6 @@ public class UserEntity implements Serializable {
 
     public void setNombre(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
 }

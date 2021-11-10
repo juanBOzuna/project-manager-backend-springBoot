@@ -3,8 +3,9 @@ package com.lulosys.projectManager.controllers;
 import java.util.*;
 
 import com.lulosys.projectManager.ModelResponses.ProjectsResponseModel;
-import com.lulosys.projectManager.entitys.ProjectsEntity;
+import com.lulosys.projectManager.entitys.ProjectEntity;
 import com.lulosys.projectManager.entitys.TaskEntity;
+import com.lulosys.projectManager.entitys.UserEntity;
 import com.lulosys.projectManager.services.ProjectsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class ProjectsController {
     ProjectsService projectsService;
     @Autowired
     TaskController tasksController;
+    @Autowired
+    UserController userController;
 
     @GetMapping()
     public ArrayList<ProjectsResponseModel> index() {
@@ -24,10 +27,11 @@ public class ProjectsController {
         ProjectsResponseModel projectsResponseModel;
         // ArrayList<ProjectsEntity> projectsEntities = projectsService.indexService();
 
-        for (ProjectsEntity project : projectsService.indexService()) {
+        for (ProjectEntity project : projectsService.indexService()) {
             projectsResponseModel = new ProjectsResponseModel();
             projectsResponseModel.setProject(project);
             projectsResponseModel.setTasks(getTasks(project.getId()));
+            projectsResponseModel.setPromotor(getPromotor(project.getPromotorId()));
             projectsRepsonseList.add(projectsResponseModel);
         }
 
@@ -37,12 +41,12 @@ public class ProjectsController {
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<ProjectsEntity> get(@PathVariable("id") Long id) {
+    public Optional<ProjectEntity> get(@PathVariable("id") Long id) {
         return this.projectsService.getService(id);
     }
 
     @PostMapping()
-    public ProjectsEntity post(@RequestBody ProjectsEntity project) {
+    public ProjectEntity post(@RequestBody ProjectEntity project) {
         return this.projectsService.postService(project);
     }
 
@@ -58,6 +62,10 @@ public class ProjectsController {
 
     ArrayList<TaskEntity> getTasks(long id) {
         return tasksController.getTasksByProjectId(id);
+    }
+
+    UserEntity getPromotor(long id) {
+        return userController.get(id).get();
     }
 
 }

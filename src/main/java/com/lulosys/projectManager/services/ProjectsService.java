@@ -3,7 +3,7 @@ package com.lulosys.projectManager.services;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import com.lulosys.projectManager.entitys.ProjectsEntity;
+import com.lulosys.projectManager.entitys.ProjectEntity;
 import com.lulosys.projectManager.repositories.ProjectsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +14,15 @@ public class ProjectsService {
     @Autowired
     ProjectsRepository projectsRepository;
 
-    public ArrayList<ProjectsEntity> indexService() {
-        return (ArrayList<ProjectsEntity>) projectsRepository.findAll();
+    public ArrayList<ProjectEntity> indexService() {
+        return (ArrayList<ProjectEntity>) projectsRepository.findAll();
     }
 
-    public ProjectsEntity postService(ProjectsEntity project) {
+    public ProjectEntity postService(ProjectEntity project) {
         return projectsRepository.save(project);
     }
 
-    public Optional<ProjectsEntity> getService(Long id) {
+    public Optional<ProjectEntity> getService(Long id) {
         return projectsRepository.findById(id);
     }
     

@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import com.lulosys.projectManager.entitys.*;
 
 public class ProjectsResponseModel {
-    private ProjectsEntity project;
+    private ProjectEntity project;
+    private UserEntity promotor;
     private ArrayList<TaskEntity> tasks;
 
-    public ProjectsEntity getProject() {
+    public ProjectEntity getProject() {
         return project;
     }
 
-    public void setProject(ProjectsEntity project) {
+    public void setProject(ProjectEntity project) {
         this.project = project;
     }
 
@@ -21,5 +22,13 @@ public class ProjectsResponseModel {
 
     public void setTasks(ArrayList<TaskEntity> tasks) {
         this.tasks = tasks;
+    }
+
+    public UserEntity getPromotor() {
+        return promotor;
+    }
+
+    public void setPromotor(UserEntity promotor) {
+        this.promotor = promotor;
     }
 }

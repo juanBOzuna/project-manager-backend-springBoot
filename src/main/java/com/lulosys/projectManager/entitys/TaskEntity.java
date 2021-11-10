@@ -6,16 +6,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "task")
-public class TaskEntity implements Serializable{
+public class TaskEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 150)
     private String name;
 
-    @Column(name = "project_id")
+    @Column(name = "project_id", length = 150)
     private long projectId;
 
     public Long getId() {
