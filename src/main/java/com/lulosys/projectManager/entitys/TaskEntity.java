@@ -18,6 +18,9 @@ public class TaskEntity implements Serializable {
     @Column(name = "project_id", length = 150)
     private long projectId;
 
+    @Column(nullable = false, columnDefinition = "TINYINT(1) default 0")
+    private boolean is_completed = true;
+
     public Long getId() {
         return id;
     }
@@ -40,6 +43,22 @@ public class TaskEntity implements Serializable {
 
     public void setProjectId(long projectId) {
         this.projectId = projectId;
+    }
+
+    public boolean getIsCompleted() {
+        return is_completed;
+    }
+
+    public void setIsCompleted(boolean enabled) {
+        this.is_completed = enabled;
+    }
+
+    public boolean isIs_completed() {
+        return is_completed;
+    }
+
+    public void setIs_completed(boolean is_completed) {
+        this.is_completed = is_completed;
     }
 
 }

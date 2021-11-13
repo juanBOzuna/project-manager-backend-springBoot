@@ -41,6 +41,11 @@ public class TaskController {
     }
 
     ArrayList<TaskEntity> getTasksByProjectId(long id) {
-        return taskService.getByProjectIdService(id);
+        try {
+            return taskService.getByProjectIdService(id);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
     }
 }

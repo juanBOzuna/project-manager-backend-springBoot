@@ -13,28 +13,71 @@ import org.springframework.stereotype.Service;
 public class UsersService {
     @Autowired
     UserRepository userRepository;
-    
-    public ArrayList<UserEntity> indexService(){
-        return (ArrayList<UserEntity>) userRepository.findAll();
+
+    public ArrayList<UserEntity> indexService() {
+        try {
+            return (ArrayList<UserEntity>) userRepository.findAll();
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
+
     }
 
-    public UserEntity postService(UserEntity user){
-        return userRepository.save(user);
+    public UserEntity postService(UserEntity user) {
+        try {
+            return userRepository.save(user);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
+
     }
 
-    public Optional<UserEntity> obtenerPorId(Long id){
-        return userRepository.findById(id);
+    public Optional<UserEntity> obtenerPorId(Long id) {
+        try {
+            return userRepository.findById(id);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
     }
 
-    // public ArrayList<UsuarioModel>  obtenerPorPrioridad(Integer prioridad) {
-    //     return usuarioRepository.findByPrioridad(prioridad);
-    // }
+    public UserEntity getByTaskIdService(long taskId) {
+        try {
+            return userRepository.findByTaskId(taskId);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
+    }
+
+    public UserEntity getByProjectIdService(long projectId) {
+        try {
+            return userRepository.findByProjectId(projectId);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
+    }
+
+    public ArrayList<UserEntity> getByRoleService(String role) {
+        try {
+            return userRepository.findByRole(role);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
+    }
 
     public boolean deleteService(Long id) {
-        try{
+        try {
             userRepository.deleteById(id);
             return true;
-        }catch(Exception err){
+        } catch (Exception err) {
             return false;
         }
     }

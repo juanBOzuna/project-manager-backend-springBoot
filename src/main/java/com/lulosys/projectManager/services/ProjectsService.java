@@ -15,17 +15,32 @@ public class ProjectsService {
     ProjectsRepository projectsRepository;
 
     public ArrayList<ProjectEntity> indexService() {
-        return (ArrayList<ProjectEntity>) projectsRepository.findAll();
+        try {
+            return (ArrayList<ProjectEntity>) projectsRepository.findAll();
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
     }
 
     public ProjectEntity postService(ProjectEntity project) {
-        return projectsRepository.save(project);
+        try {
+            return projectsRepository.save(project);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
     }
 
     public Optional<ProjectEntity> getService(Long id) {
-        return projectsRepository.findById(id);
+        try {
+            return projectsRepository.findById(id);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
     }
-    
+
     public boolean deleteService(Long id) {
         try {
             projectsRepository.deleteById(id);

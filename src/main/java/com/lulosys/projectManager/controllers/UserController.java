@@ -1,8 +1,10 @@
 package com.lulosys.projectManager.controllers;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import com.lulosys.projectManager.ModelResponses.CreateUserModel;
 import com.lulosys.projectManager.entitys.UserEntity;
 import com.lulosys.projectManager.services.UsersService;
 
@@ -25,9 +27,26 @@ public class UserController {
         return this.userService.obtenerPorId(id);
     }
 
+    @GetMapping(path = "/rol={rol}")
+    public ArrayList<UserEntity> get(@PathVariable("rol") String rol) {
+        return this.userService.getByRoleService(rol);
+    }
+
+    // @GetMapping(path = "/project={projectId}")
+    public UserEntity getByProjectId(Long projectId) {
+        return this.userService.getByProjectIdService(projectId);
+    }
+
     @PostMapping()
-    public UserEntity post(@RequestBody UserEntity usuario) {
-        return this.userService.postService(usuario);
+    public UserEntity post(@RequestBody CreateUserModel usuario) {
+        try {
+            Timestamp date = Timestamp.valueOf(usuario.getDate());
+            usuario.getUser().setHiring_date(date);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+        return this.userService.postService(usuario.getUser());
     }
 
     @DeleteMapping(path = "/{id}")
@@ -37,6 +56,18 @@ public class UserController {
             return "Se eliminó el usuario con id " + id;
         } else {
             return "No pudo eliminar el usuario con id" + id;
+        }
+    }
+
+    UserEntity getUserByTaskId(long taskId) {
+        try {
+            return userService.getByTaskIdService(taskId);
+        } catch (Exception e) {
+            UserEntity usernn = new UserEntity();
+            usernn.setName("Sin nombre");
+            usernn.setId(0L);
+            // TODO: handle exception
+            return usernn;
         }
     }
 

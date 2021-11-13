@@ -15,19 +15,42 @@ public class TaskService {
     TaskRepository taskRepository;
 
     public ArrayList<TaskEntity> indexService() {
-        return (ArrayList<TaskEntity>) taskRepository.findAll();
+        try {
+            return (ArrayList<TaskEntity>) taskRepository.findAll();
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
+
     }
 
     public TaskEntity postService(TaskEntity task) {
-        return taskRepository.save(task);
+        try {
+            return taskRepository.save(task);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
+
     }
 
     public Optional<TaskEntity> getService(Long id) {
-        return taskRepository.findById(id);
+        try {
+            return taskRepository.findById(id);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
     }
 
     public ArrayList<TaskEntity> getByProjectIdService(long projectId) {
-        return taskRepository.findByProjectId(projectId);
+        try {
+            return taskRepository.findByProjectId(projectId);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
     }
 
     public boolean deleteService(Long id) {
