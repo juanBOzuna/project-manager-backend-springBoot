@@ -31,6 +31,34 @@ public class TaskController {
         return this.taskService.getService(id);
     }
 
+    @GetMapping(path = "/finalize/taskId={taskId}")
+    public Boolean finalizeTask(@PathVariable("taskId") Long taskId) {
+        Boolean finalize = false;
+        try {
+            UserEntity user = userController.getUserByTaskId(taskId);
+            CreateUserModel userEdit = new CreateUserModel();
+            user.setTaskId(null);
+            userEdit.setUser(user);
+            userController.post(userEdit);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+        try {
+
+            TaskEntity task = taskService.getService(taskId).get();
+            task.setIsCompleted(true);
+            taskService.postService(task);
+
+            finalize = true;
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        // task.set
+
+        return finalize;
+    }
+
     @PostMapping()
     public TaskEntity post(@RequestBody CreateTaskModel task) {
         TaskEntity taskEntity = this.taskService.postService(task.getTask());

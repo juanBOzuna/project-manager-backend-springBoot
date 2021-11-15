@@ -24,6 +24,9 @@ public class ProjectEntity implements Serializable {
     @Column(name = "comercial_designation", length = 150)
     private String comercial_designation;
 
+    @Column(nullable = false, columnDefinition = "TINYINT(1) default 0")
+    private boolean is_completed = false;
+
     @Column(name = "date_init", nullable = true, length = 150)
     private Timestamp date_init;
 
@@ -53,7 +56,6 @@ public class ProjectEntity implements Serializable {
         this.name = name;
     }
 
-    
     public String getKey_name() {
         return key_name;
     }
@@ -87,11 +89,11 @@ public class ProjectEntity implements Serializable {
     }
 
     // public Long getPromotor_id() {
-    //     return promotor_id;
+    // return promotor_id;
     // }
 
     // public void setPromotor_id(Long promotor_id) {
-    //     this.promotor_id = promotor_id;
+    // this.promotor_id = promotor_id;
     // }
 
     public Timestamp getCreated_at() {
@@ -100,6 +102,14 @@ public class ProjectEntity implements Serializable {
 
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
+    }
+
+    public boolean isIs_completed() {
+        return is_completed;
+    }
+
+    public void setIs_completed(boolean is_completed) {
+        this.is_completed = is_completed;
     }
 
     // public List<TasksEntity> getTasks() {

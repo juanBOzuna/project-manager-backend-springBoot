@@ -83,7 +83,7 @@ public class UserController {
     @GetMapping(path = "/rolEdit={rolEdit}/projectId={projectId}")
     public ArrayList<UserEntity> getPromotorsForEditProject(@PathVariable("rolEdit") String rolEdit,
             @PathVariable("projectId") String projectId) {
-        UserEntity userAssigned = new UserEntity();
+        // UserEntity userAssigned = null;
         ArrayList<UserEntity> promotors = new ArrayList<UserEntity>();
         for (UserEntity userEntity : this.userService.getByRoleService(rolEdit)) {
             if (userEntity.getProjectId() == null) {
@@ -91,13 +91,15 @@ public class UserController {
             }
             try {
                 if (userEntity.getProjectId() != null && userEntity.getProjectId() == Long.parseLong(projectId)) {
-                    userAssigned = userEntity;
+                    // userAssigned = new UserEntity();
+                    // userAssigned = userEntity;
+                    promotors.add(0, userEntity);
                 }
             } catch (Exception e) {
                 // TODO: handle exception
             }
         }
-        promotors.add(0, userAssigned);
+
         return promotors;
     }
 
@@ -153,9 +155,14 @@ public class UserController {
         return employees;
     }
 
+    @GetMapping(path = "/finalizeProject")
+    public ArrayList<UserEntity> getUsersByProjectId(Long projectId) {
+        return userService.getByProjectIdService(projectId);
+    }
+
     // @GetMapping(path = "/project={projectId}")
     @GetMapping(path = "/projectId={projectId}")
-    public UserEntity getByProjectId(@PathVariable("projectId") Long projectId) {
+    public UserEntity getPromotorByProjectId(@PathVariable("projectId") Long projectId) {
         return this.userService.getPromotorByProjectIdService(projectId);
     }
 

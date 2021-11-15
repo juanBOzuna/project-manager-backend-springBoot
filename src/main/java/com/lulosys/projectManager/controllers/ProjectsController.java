@@ -39,7 +39,7 @@ public class ProjectsController {
             projectsResponseModel.setTasks(getTasks(project.getId()));
             try {
 
-                projectsResponseModel.setPromotor(userController.getByProjectId(project.getId()));
+                projectsResponseModel.setPromotor(userController.getPromotorByProjectId(project.getId()));
 
             } catch (Exception e) {
                 // TODO: handle exception
@@ -88,12 +88,47 @@ public class ProjectsController {
         return projectPost;
     }
 
+    @GetMapping(path = "finalize/projectId={projectId}")
+    public Boolean finalize(@PathVariable("projectId") Long projectId) {
+        Boolean finalize = false;
+        try {
+            ArrayList<UserEntity> usersOfProject = userController.getUsersByProjectId(projectId);
+
+            for (UserEntity userEntity : usersOfProject) {
+                CreateUserModel userEdit = new CreateUserModel();
+                userEntity.setTaskId(null);
+                userEntity.setProjectId(null);
+                userEdit.setUser(userEntity);
+                userController.post(userEdit);
+            }
+
+            try {
+
+                ProjectEntity project = projectsService.getService(projectId).get();
+                Long datetime = System.currentTimeMillis();
+                Timestamp timestamp = new Timestamp(datetime);
+                project.setDate_finish(timestamp);
+                project.setIs_completed(true);
+                projectsService.postService(project);
+
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+
+            finalize = true;
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+        return finalize;
+    }
+
     @DeleteMapping(path = "/{id}")
     public String delete(@PathVariable("id") Long id) {
 
         try {
             try {
-                UserEntity promotor = userController.getByProjectId(id);
+                UserEntity promotor = userController.getPromotorByProjectId(id);
                 promotor.setProjectId(null);
                 CreateUserModel userRemoveProject = new CreateUserModel();
                 userRemoveProject.setUser(promotor);
