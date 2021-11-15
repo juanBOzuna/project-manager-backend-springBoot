@@ -3,6 +3,8 @@ package com.lulosys.projectManager.services;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import com.lulosys.projectManager.controllers.TaskController;
+import com.lulosys.projectManager.entitys.TaskEntity;
 import com.lulosys.projectManager.entitys.UserEntity;
 import com.lulosys.projectManager.repositories.UserRepository;
 
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 public class UsersService {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    TaskController TaskController;
 
     public ArrayList<UserEntity> indexService() {
         try {
@@ -22,6 +26,19 @@ public class UsersService {
             return null;
         }
 
+    }
+
+    public TaskEntity getTaskOfEmployeeService(Long id) {
+        TaskEntity task = null;
+        try {
+            UserEntity user = userRepository.findById(id).get();
+
+            task = TaskController.get(user.getTaskId()).get();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+        return task;
     }
 
     public UserEntity postService(UserEntity user) {
@@ -53,9 +70,29 @@ public class UsersService {
         }
     }
 
-    public UserEntity getByProjectIdService(long projectId) {
+    public UserEntity getByEmailService(String email) {
         try {
-            return userRepository.findByProjectId(projectId);
+            return userRepository.findByEmail(email);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
+    }
+
+    public ArrayList<UserEntity> getByProjectIdService(long projectId) {
+        return this.userRepository.findByProjectId(projectId);
+    }
+
+    public UserEntity getPromotorByProjectIdService(long projectId) {
+        try {
+            UserEntity userPromotor = null;
+            for (UserEntity user : this.userRepository.findByProjectId(projectId)) {
+                if (user.getRole() == "promotor") {
+                    userPromotor = user;
+                }
+            }
+            return userPromotor;
 
         } catch (Exception e) {
             // TODO: handle exception

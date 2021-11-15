@@ -33,6 +33,9 @@ public class UserEntity implements Serializable {
 
     @Column(name = "email", nullable = false, length = 150)
     private String email;
+    
+    @Column(name = "password", nullable = false, length = 150)
+    private String password;
 
     @Column(name = "task_id", nullable = true)
     private Long taskId;
@@ -151,6 +154,14 @@ public class UserEntity implements Serializable {
 
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

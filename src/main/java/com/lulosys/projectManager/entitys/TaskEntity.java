@@ -19,7 +19,7 @@ public class TaskEntity implements Serializable {
     private long projectId;
 
     @Column(nullable = false, columnDefinition = "TINYINT(1) default 0")
-    private boolean is_completed = true;
+    private boolean is_completed = false;
 
     public Long getId() {
         return id;

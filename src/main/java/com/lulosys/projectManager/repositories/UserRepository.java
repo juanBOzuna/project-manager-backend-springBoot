@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
     // public abstract ArrayList<UsuarioModel> findByPrioridad(Integer prioridad);
     public abstract UserEntity findByTaskId(Long taskId);
-    public abstract UserEntity findByProjectId(Long projectId);
+    // public abstract UserEntity findByTaskId(Long taskId);
+    public abstract ArrayList<UserEntity> findByProjectId(Long projectId);
     public abstract ArrayList<UserEntity> findByRole(String role);
+    public abstract UserEntity findByEmail(String email);
 
 }

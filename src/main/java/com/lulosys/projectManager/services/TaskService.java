@@ -24,6 +24,10 @@ public class TaskService {
 
     }
 
+    public Boolean changeOfTaskCompleted(){
+        return true;
+    }
+
     public TaskEntity postService(TaskEntity task) {
         try {
             return taskRepository.save(task);

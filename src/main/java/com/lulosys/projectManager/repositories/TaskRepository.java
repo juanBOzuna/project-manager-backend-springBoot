@@ -9,4 +9,5 @@ import com.lulosys.projectManager.entitys.TaskEntity;
 @Repository
 public interface TaskRepository extends CrudRepository<TaskEntity, Long> {
     public abstract ArrayList<TaskEntity> findByProjectId(Long projectId);
+    // public abstract ArrayList<TaskEntity> findByProjectId(Long projectId);
 }
