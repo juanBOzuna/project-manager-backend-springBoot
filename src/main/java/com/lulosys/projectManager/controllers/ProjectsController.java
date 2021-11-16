@@ -128,8 +128,11 @@ public class ProjectsController {
 
         try {
             try {
+                System.out.print("\n\n\nEntrada delete project 1:");
                 UserEntity promotor = userController.getPromotorByProjectId(id);
                 promotor.setProjectId(null);
+                System.out.print("\n\n\nPRomtor:" + promotor.getName());
+
                 CreateUserModel userRemoveProject = new CreateUserModel();
                 userRemoveProject.setUser(promotor);
                 userController.post(userRemoveProject);

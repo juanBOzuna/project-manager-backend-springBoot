@@ -9,6 +9,7 @@ import com.lulosys.projectManager.ModelResponses.LoginResponse;
 import com.lulosys.projectManager.entitys.ProjectEntity;
 import com.lulosys.projectManager.entitys.TaskEntity;
 import com.lulosys.projectManager.entitys.UserEntity;
+import com.lulosys.projectManager.services.ProjectsService;
 import com.lulosys.projectManager.services.TaskService;
 import com.lulosys.projectManager.services.UsersService;
 
@@ -23,6 +24,8 @@ public class UserController {
     UsersService userService;
     @Autowired
     ProjectsController projectsController;
+    @Autowired
+    ProjectsService projectsService;
 
     @GetMapping()
     public ArrayList<UserEntity> index() {
@@ -179,6 +182,7 @@ public class UserController {
 
     @DeleteMapping(path = "/{id}")
     public String delete(@PathVariable("id") Long id) {
+
         boolean ok = this.userService.deleteService(id);
         if (ok) {
             return "Se eliminó el usuario con id " + id;

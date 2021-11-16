@@ -88,7 +88,7 @@ public class UsersService {
         try {
             UserEntity userPromotor = null;
             for (UserEntity user : this.userRepository.findByProjectId(projectId)) {
-                if (user.getRole() == "promotor") {
+                if (user.getRole().equals("promotor")) {
                     userPromotor = user;
                 }
             }
