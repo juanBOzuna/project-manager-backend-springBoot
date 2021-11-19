@@ -71,7 +71,6 @@ public class ProjectsController {
         ProjectEntity projectPost = this.projectsService.postService(project.getProject());
         System.out.println("entrada");
         try {
-            System.out.println("entrada2");
             promotor = userController.get(project.getPromotor_id()).get();
             System.out.println("entrada3");
             promotor.setProjectId(projectPost.getId());
