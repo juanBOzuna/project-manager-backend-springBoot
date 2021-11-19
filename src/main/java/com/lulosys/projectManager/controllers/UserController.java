@@ -29,7 +29,15 @@ public class UserController {
 
     @GetMapping()
     public ArrayList<UserEntity> index() {
-        return userService.indexService();
+        ArrayList<UserEntity> users = new ArrayList<UserEntity>();
+
+        for (UserEntity userEntity : userService.indexService()) {
+            if (userEntity.getRole() != "admin") {
+                users.add(userEntity);
+            }
+        }
+
+        return users;
     }
 
     @GetMapping(path = "/{id}")
