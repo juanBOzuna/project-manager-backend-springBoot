@@ -20,7 +20,6 @@
 	</properties>
 
 	<dependencies>
-	
 		<!-- <dependency>
             <groupId>org.springframework.clod</groupId>
             <artifactId>spring-cloud-gcp-dependencies</artifactId>
