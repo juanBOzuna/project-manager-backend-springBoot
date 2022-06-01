@@ -34,6 +34,8 @@ public class UserController {
         for (UserEntity userEntity : userService.indexService()) {
             if (userEntity.getRole() != "admin") {
                 users.add(userEntity);
+            } else {
+                userEntity.setPassword("");
             }
         }
 
